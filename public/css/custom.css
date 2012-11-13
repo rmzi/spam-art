@@ -1,0 +1,10 @@
+ul.errors { margin-top: 10px }
+
+.title{
+  background: url('/img/spam-art.png') no-repeat 0 0;
+  width: 100%;
+  height: 280px;
+  text-indent: inherit: -9999px;
+  display: block;
+  margin-top: 30px;
+}

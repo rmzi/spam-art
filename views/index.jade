@@ -1,0 +1,38 @@
+extends layout
+block content
+
+  .title
+  include messages
+
+  form(action='/contact', method='post')
+    input(type='hidden', name='_csrf', value=token)
+    .control-group
+      label.control-label(for='message_name') Your Name
+      .controls
+        input#message_name.input-xxlarge(type='text', placeholder='Name', name='message[name]', value=message.name)
+    .control-group
+      label.control-label(for='message_email') To
+      .controls
+        input#message_email.input-xxlarge(type='text', placeholder='Email', name='message[email]', value=message.email)
+    .control-group
+      label.control-label(for='message_message') Message
+      .controls
+        textarea#message_message.input-xxlarge(placeholder='Enter message', rows='6', name='message[message]')=message.message
+    button.btn(type='submit') Send Message
+  script(type='text/javascript')
+    function getJSONP(url, success) {
+      var ud = '_' + +new Date,
+          script = document.createElement('script'),
+          head = document.getElementsByTagName('head')[0] 
+                 || document.documentElement;
+      window[ud] = function(data) {
+          head.removeChild(script);
+          success && success(data);
+      };
+      script.src = url.replace('callback=?', 'callback=' + ud);
+      head.appendChild(script);
+    }
+    getJSONP('http://www.randomhaiku.com/haiku.php?xsl=json', function(data) {
+      console.log("data");
+      //document.getElementById("message_message").value = data.poem[0] + "\n" + data.poem[1] + "\n" + data.poem[2] + "\n";
+    });
